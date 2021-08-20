@@ -20,7 +20,7 @@ pipeline {
             }
         }
         
-        stage ('Gradle Build .war') {
+        stage ('Gradle Build .jar') {
             steps{
                 sh './gradlew build'
             }
