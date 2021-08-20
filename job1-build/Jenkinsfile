@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+    
+    environment {
+         ARTIFACTORY_ID = 'localjfrog'
+         ARTIFACTORY_URL = credentials('artifactory-url')
+         ARTIFACTORY_CREDENTIALS = credentials('artifactory-credentials')
+    }
+    
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'master', url: "https://github.com/ssimoesfelipe/TemaFinal1.git"
+            }
+        }
+            
+        stage ('Gradle Test') {
+            steps{
+                sh './gradlew test'
+            }
+        }
+        
+        stage ('Gradle Build .war') {
+            steps{
+                sh './gradlew build'
+            }
+        }
+stage ('Artifactory Deploy') {
+            steps {
+                rtServer (
+                    id: env.ARTIFACTORY_ID,
+                    url: env.ARTIFACTORY_URL,
+                    username: env.ARTIFACTORY_CREDENTIALS_USR,
+                    password: env.ARTIFACTORY_CREDENTIALS_PSW
+                )
+                rtUpload (
+                    serverId: env.ARTIFACTORY_ID,
+                    spec: '''{
+                        "files": [
+                            {
+                                "pattern": "build/libs/*.jar",
+                                "target": "gradle-local-dev/"
+                            } 
+                        ]
+                    }'''
+                )
+            }
+        }
+    }
+}

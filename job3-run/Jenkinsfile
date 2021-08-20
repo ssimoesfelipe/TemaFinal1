@@ -1,0 +1,21 @@
+pipeline {
+   agent any
+
+   stages {
+      stage('Download Docker image') {
+         steps {
+            sh '''
+                 docker pull ssimoesfelipe/temafinal1:calculator
+               '''
+         }
+      }
+
+      stage('Run Docker image') {
+         steps {
+            sh '''
+                 docker run -d -p 8090:8090 ssimoesfelipe/temafinal1:calculator
+               '''
+         }
+      }
+   }
+}

@@ -1,0 +1,22 @@
+com/felipesimoes1/cloud/tema08/operations/Exponentiation.java
+ com.felipesimoes1.cloud.tema08.operations.Exponentiation
+com/felipesimoes1/cloud/tema08/rxnetty/RxNettyHandler.java
+ com.felipesimoes1.cloud.tema08.rxnetty.RxNettyHandler
+com/felipesimoes1/cloud/tema08/configuration/AppConfig.java
+ com.felipesimoes1.cloud.tema08.configuration.AppConfig
+com/felipesimoes1/cloud/tema08/operations/Subtraction.java
+ com.felipesimoes1.cloud.tema08.operations.Subtraction
+com/felipesimoes1/cloud/tema08/operations/Division.java
+ com.felipesimoes1.cloud.tema08.operations.Division
+com/felipesimoes1/cloud/tema08/operations/Addition.java
+ com.felipesimoes1.cloud.tema08.operations.Addition
+com/felipesimoes1/cloud/tema08/operations/Operation.java
+ com.felipesimoes1.cloud.tema08.operations.Operation
+com/felipesimoes1/cloud/tema08/service/Calculator.java
+ com.felipesimoes1.cloud.tema08.service.Calculator
+com/felipesimoes1/cloud/tema08/operations/Multiplication.java
+ com.felipesimoes1.cloud.tema08.operations.Multiplication
+com/felipesimoes1/cloud/tema08/rxnetty/HealthCheckResource.java
+ com.felipesimoes1.cloud.tema08.rxnetty.HealthCheckResource
+com/felipesimoes1/cloud/tema08/MainRunner.java
+ com.felipesimoes1.cloud.tema08.MainRunner

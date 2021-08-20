@@ -1,0 +1,50 @@
+{
+	"variables": {
+		"dockerhub_username":"",
+		"dockerhub_password":"",
+		"dockerhub_repository":""
+	},
+	
+	"builders":[
+		{
+		"type": "docker",
+		"image": "ubuntu:20.04",
+		"commit": true,
+		"changes": [
+			"EXPOSE 8090",
+			"ENTRYPOINT [\"java\", \"-jar\", \"calculator-1.0.jar\"]" ]
+		}
+	],
+
+	"provisioners":[
+		{
+			"type": "shell",
+			"inline": [
+				"apt-get update", "apt-get install python3 python3-pip python3-apt -yq ", "pip3 install ansible" ]
+		},
+		{
+			"type": "ansible-local",
+			"playbook_file": "/var/lib/jenkins/workspace/job2-infra/job2-infra/playbook.yml"
+		},
+		{
+			"type": "file",
+			"source": "/var/lib/jenkins/workspace/job2-infra/temaFinal1/calculator-1.0.jar",
+			"destination": "/calculator-1.0.jar"
+		}	
+	],
+	"post-processors":[
+		[
+			{
+				"type": "docker-tag",
+				"repository": "ssimoesfelipe/temafinal1",
+				"tag": "calculator"
+			},
+			{
+				"type": "docker-push",
+				"login":true,
+				"login_username":"{{user `dockerhub_username`}}",
+				"login_password":"{{user `dockerhub_password`}}"
+			}
+		]
+	]
+}

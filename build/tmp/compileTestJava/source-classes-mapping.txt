@@ -1,0 +1,2 @@
+com/felipesimoes1/cloud/tema08/CalculatorTest.java
+ com.felipesimoes1.cloud.tema08.CalculatorTest

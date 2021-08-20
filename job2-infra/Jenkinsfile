@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+	environment {
+         ARTIFACTORY_ID = 'localjfrog'
+         ARTIFACTORY_URL = credentials('artifactory-url')
+         ARTIFACTORY_CREDENTIALS = credentials('artifactory-credentials')
+		 DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+		 DOCKERHUB_REPOSITORY = credentials('dockerhub-repository')
+    }
+
+    stages {
+        stage ('Get Artifact from JFrog') {
+            steps {
+		rtServer (
+		    id: env.ARTIFACTORY_ID,
+		    url: env.ARTIFACTORY_URL,
+		    username: env.ARTIFACTORY_CREDENTIALS_USR,
+		    password: env.ARTIFACTORY_CREDENTIALS_PSW,
+		)
+            
+                rtDownload (
+		    serverId: 'localjfrog',
+		    spec: '''{
+			  "files": [
+			    {
+			      "pattern": "gradle-local-dev/",
+			      "target": "temaFinal1/"
+			    }
+			  ]
+		    }'''
+		)
+            }
+        }
+        
+        stage ('Docker Build Image and Deploy in DockerHub') {
+            steps {
+                sh 'packer build -var "dockerhub_username=$DOCKERHUB_CREDENTIALS_USR" -var "dockerhub_password=$DOCKERHUB_CREDENTIALS_PSW" -var "dockerhub_repository=$DOCKERHUB_REPOSITORY" "job2-infra/temafinal1template.json"'
+            }
+        }
+    }
+}
